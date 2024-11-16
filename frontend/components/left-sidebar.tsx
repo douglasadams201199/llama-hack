@@ -45,7 +45,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <h2 className="px-2 text-lg font-semibold">Supply Chain Analysis</h2>
+        <h2 className="px-2 text-lg font-semibold">Project database</h2>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
