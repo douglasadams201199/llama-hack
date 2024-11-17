@@ -219,6 +219,8 @@ export default function Home() {
         <h1 className="text-2xl font-bold mb-6">
           Project LLaMA: Low-carbon Lifecycle and Microgrid Adaption
         </h1>
+
+        <h2 className="text-2xl py-6 px-8 bg-gray-100 rounded-lg mb-8 inline-block">Welcome back, Douglas! I have identified some high priority items for your review</h2>
         
         {/* Larger Notification Popup */}
         {notification && (
@@ -340,140 +342,167 @@ export default function Home() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Main Table */}
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="min-w-full">
-              <thead>
-                <tr className="bg-gray-50">
-                  <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Material</th>
-                  <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usage</th>
-                  <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
-                  {/* <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th> */}
-                  <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {insights.map((insight) => (
-                  <tr 
-                    key={insight.id} 
-                    className="hover:bg-gray-50"
-                  >
-                    <td className="px-6 py-4 whitespace-nowrap cursor-pointer" onClick={() => handleRowClick(insight)}>{insight.material}</td>
-                    <td className="px-6 py-4 cursor-pointer" onClick={() => handleRowClick(insight)}>{insight.usage}</td>
-                    <td className="px-6 py-4 whitespace-nowrap cursor-pointer" onClick={() => handleRowClick(insight)}>{insight.supplier}</td>
-                    {/* <td className="px-6 py-4 cursor-pointer" onClick={() => handleRowClick(insight)}>
-                      <div>
-                        <div className="font-medium">{insight.supplier_contact.name}</div>
-                        <div className="text-sm text-gray-500">{insight.supplier_contact.position}</div>
-                        <div className="text-sm text-gray-500">{insight.supplier_contact.email}</div>
-                      </div>
-                    </td> */}
-                    <td className="px-6 py-4">
-                      <button
-                        onClick={() => handleAnalyse(insight.material)}
-                        disabled={isAnalyzing === insight.material}
-                        className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded flex items-center gap-2"
-                      >
-                        {isAnalyzing === insight.material ? (
-                          <>
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            Analyzing...
-                          </>
-                        ) : (
-                          'Generate Recommendations'
-                        )}
-                      </button>
-                    </td>
+<div className="flex flex-col gap-6">
+          <div className="grid grid-cols-1 gap-6">
+            {/* Main Action Items Table */}
+            <div className="bg-white rounded-lg shadow overflow-hidden">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Material</th>
+                    <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usage</th>
+                    <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
+                    <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {insights.map((insight) => (
+                    <tr 
+                      key={insight.id} 
+                      className="hover:bg-gray-50"
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap cursor-pointer" onClick={() => handleRowClick(insight)}>{insight.material}</td>
+                      <td className="px-6 py-4 cursor-pointer" onClick={() => handleRowClick(insight)}>{insight.usage}</td>
+                      <td className="px-6 py-4 whitespace-nowrap cursor-pointer" onClick={() => handleRowClick(insight)}>{insight.supplier}</td>
+                      <td className="px-6 py-4">
+                        <button
+                          onClick={() => handleAnalyse(insight.material)}
+                          disabled={isAnalyzing === insight.material}
+                          className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded flex items-center gap-2"
+                        >
+                          {isAnalyzing === insight.material ? (
+                            <>
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                              Analyzing...
+                            </>
+                          ) : (
+                            'Generate Recommendations'
+                          )}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-          {/* Details Panel */}
-          {selectedInsight && (
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-bold mb-4">{selectedInsight.material} Details</h2>
-              
-              <div className="mb-6">
-                <button 
-                  onClick={() => toggleSection('insights')}
-                  className="flex items-center justify-between w-full text-lg font-semibold mb-2"
-                >
-                  <span>Recent Insights</span>
-                  <span>{openSections.insights ? '▼' : '▶'}</span>
-                </button>
-                {openSections.insights && (
-                  <ul className="list-disc pl-5 space-y-2">
-                    {selectedInsight.insights.map((insight, index) => (
-                      <li key={index} className="text-gray-700 prose max-w-none">
-                        <ReactMarkdown>{insight}</ReactMarkdown>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              <div className="mb-6">
-                <button 
-                  onClick={() => toggleSection('article')}
-                  className="flex items-center justify-between w-full text-lg font-semibold mb-2"
-                >
-                  <span>Article</span>
-                  <span>{openSections.article ? '▼' : '▶'}</span>
-                </button>
-                {openSections.article && (
-                  <div className="text-gray-700 prose max-w-none">
-                    <ReactMarkdown>{selectedInsight.article}</ReactMarkdown>
-                  </div>
-                )}
-              </div>
-
-              <div className="mb-6">
-                <button 
-                  onClick={() => toggleSection('contractClauses')}
-                  className="flex items-center justify-between w-full text-lg font-semibold mb-2"
-                >
-                  <span>Contract Clauses</span>
-                  <span>{openSections.contractClauses ? '▼' : '▶'}</span>
-                </button>
-                {openSections.contractClauses && (
-                  <div className="text-gray-700 prose max-w-none">
-                    <ReactMarkdown>{selectedInsight.contract_clauses}</ReactMarkdown>
-                  </div>
-                )}
-              </div>
-
-              {selectedInsight.alternate_materials.length > 0 && (
-                <div>
+            {/* Details Panel */}
+            {selectedInsight && (
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-bold mb-4">{selectedInsight.material} Details</h2>
+                
+                <div className="mb-6">
                   <button 
-                    onClick={() => toggleSection('alternativeMaterials')}
+                    onClick={() => toggleSection('insights')}
                     className="flex items-center justify-between w-full text-lg font-semibold mb-2"
                   >
-                    <span>Alternative Materials</span>
-                    <span>{openSections.alternativeMaterials ? '▼' : '▶'}</span>
+                    <span>Recent Insights</span>
+                    <span>{openSections.insights ? '▼' : '▶'}</span>
                   </button>
-                  {openSections.alternativeMaterials && (
-                    selectedInsight.alternate_materials.map((alt, index) => (
-                      <div key={index} className="mb-4">
-                        <h4 className="font-medium">{alt.material}</h4>
-                        <p className="text-sm text-gray-600">Supplier: {alt.supplier}</p>
-                        <p className="text-sm text-gray-600">Contact: {alt.supplier_contact.name}</p>
-                        <ul className="list-disc pl-5 mt-2">
-                          {alt.insights.map((insight, i) => (
-                            <li key={i} className="text-sm text-gray-700 prose max-w-none">
-                              <ReactMarkdown>{insight}</ReactMarkdown>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))
+                  {openSections.insights && (
+                    <ul className="list-disc pl-5 space-y-2">
+                      {selectedInsight.insights.map((insight, index) => (
+                        <li key={index} className="text-gray-700 prose max-w-none">
+                          <ReactMarkdown>{insight}</ReactMarkdown>
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </div>
-              )}
+
+                <div className="mb-6">
+                  <button 
+                    onClick={() => toggleSection('article')}
+                    className="flex items-center justify-between w-full text-lg font-semibold mb-2"
+                  >
+                    <span>Article</span>
+                    <span>{openSections.article ? '▼' : '▶'}</span>
+                  </button>
+                  {openSections.article && (
+                    <div className="text-gray-700 prose max-w-none">
+                      <ReactMarkdown>{selectedInsight.article}</ReactMarkdown>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mb-6">
+                  <button 
+                    onClick={() => toggleSection('contractClauses')}
+                    className="flex items-center justify-between w-full text-lg font-semibold mb-2"
+                  >
+                    <span>Contract Clauses</span>
+                    <span>{openSections.contractClauses ? '▼' : '▶'}</span>
+                  </button>
+                  {openSections.contractClauses && (
+                    <div className="text-gray-700 prose max-w-none">
+                      <ReactMarkdown>{selectedInsight.contract_clauses}</ReactMarkdown>
+                    </div>
+                  )}
+                </div>
+
+                {selectedInsight.alternate_materials.length > 0 && (
+                  <div>
+                    <button 
+                      onClick={() => toggleSection('alternativeMaterials')}
+                      className="flex items-center justify-between w-full text-lg font-semibold mb-2"
+                    >
+                      <span>Alternative Materials</span>
+                      <span>{openSections.alternativeMaterials ? '▼' : '▶'}</span>
+                    </button>
+                    {openSections.alternativeMaterials && (
+                      selectedInsight.alternate_materials.map((alt, index) => (
+                        <div key={index} className="mb-4">
+                          <h4 className="font-medium">{alt.material}</h4>
+                          <p className="text-sm text-gray-600">Supplier: {alt.supplier}</p>
+                          <p className="text-sm text-gray-600">Contact: {alt.supplier_contact.name}</p>
+                          <ul className="list-disc pl-5 mt-2">
+                            {alt.insights.map((insight, i) => (
+                              <li key={i} className="text-sm text-gray-700 prose max-w-none">
+                                <ReactMarkdown>{insight}</ReactMarkdown>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* No Action Table */}
+            <div className="bg-white rounded-lg shadow overflow-hidden">
+              <h3 className="px-6 py-4 text-lg font-semibold text-gray-700 bg-gray-50">Materials Requiring No Action</h3>
+              <table className="min-w-full">
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Material</th>
+                    <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usage</th>
+                    <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
+                    <th className="px-6 py-3 border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {[
+                    { material: "Silicon Wafers", usage: "Solar Cell Production", supplier: "SiliconTech", status: "Supply Chain Stable" },
+                    { material: "Silver Paste", usage: "Cell Metallization", supplier: "MetalChem Inc", status: "Inventory Sufficient" },
+                    { material: "EVA Film", usage: "Panel Encapsulation", supplier: "PolymerTech Ltd", status: "Long-term Contract" },
+                  ].map((item, index) => (
+                    <tr key={index} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">{item.material}</td>
+                      <td className="px-6 py-4">{item.usage}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{item.supplier}</td>
+                      <td className="px-6 py-4">
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          {item.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          )}
+          </div>
         </div>
       </main>
     </div>
