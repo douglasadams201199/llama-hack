@@ -15,8 +15,9 @@ app.add_middleware(
 )
 
 def load_data():
-    insights = pd.read_csv("synthetic_insights.csv")
-    # Load articles from JSON instead of CSV to preserve data types
+    # Replace CSV reading with JSON reading
+    with open("generated_data.json") as f:
+        insights = pd.DataFrame(json.load(f))
     with open("generated_articles.json") as f:
         articles = pd.DataFrame(json.load(f))
     return insights, articles
@@ -110,6 +111,11 @@ async def get_graph():
     insights, articles = load_data()
     graph_data = create_graph_data(insights.head(10), articles)
     return graph_data
+
+@app.get("/insights")
+async def get_insights():
+    insights, _ = load_data()
+    return insights.to_dict('records')
 
 if __name__ == "__main__":
     import uvicorn

@@ -25,9 +25,9 @@ Need to generate two .json files, one is a project table composed of:
 ID = 'ajcivirh'
 PROJECT_NAME = 'Project LLaMA: Low-carbon Lifecycle and Microgrid Adaption'
 materials={
-    "Copper": "Electrical wiring in microgrids, transformers, and renewable energy systems",
-    "Cobalt": "Used as a cathode in lithium-ion batteries",
-    "Dysprosium": "Permanent magnets in wind turbines"
+    "Copper": "Used extensively for electrical wiring in Project LLaMA's microgrids particularly in electrical transformers and energy generation systems",
+    "Cobalt": "Critical for the cathodes in the large battery backend system being developed as part of Project LLaMAs",
+    "Dysprosium": "The permanent magnets within Project LLaMA's wind turbines are heavily dependent on the Dy supplement to Neodymium"
 }
 
 alternatives = {
