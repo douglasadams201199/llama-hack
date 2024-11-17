@@ -1,5 +1,7 @@
 # SmartChain
 
+<img width="1569" alt="Screenshot 2024-11-17 at 14 39 33" src="https://github.com/user-attachments/assets/9507ee87-3369-47f2-9f75-3fc93d482160">
+
 My submission to Llama hack 2024 London.
 
 SmartChain is an AI agent that helps protect renewable energy supply chains & ensure project success.
