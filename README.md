@@ -4,16 +4,43 @@
 
 My submission to Llama hack 2024 London.
 
-SmartChain is an AI agent that helps protect renewable energy supply chains & ensure project success.
+## What is SmartChain?
 
-An often overlooked component of the green energy transition is the critical and ofen volatile supply chains that support it. Copper, a core ingredient in electrical wiring in essential components such as transformers can often fluctuate in price massively and often needs to be replaced wth alternatives such as Aluminium. Today, project directors rarely have the time or the tools to be able to monitor these files effectively, leading to unexpected costs, project overrun, and even cancellation. 
+SmartChain is an AI agent that helps protect renewable energy supply chains & ensure project success. It tackles a critical but often overlooked challenge in the green energy transition: volatile supply chains.
 
-SmartChain aims to help fix this problem. 
+For example, copper - a core ingredient in electrical wiring and transformers - can experience massive price fluctuations. Project directors often need alternatives like aluminum but lack the tools to monitor these effectively. This leads to unexpected costs, project overruns, and sometimes even cancellation.
 
-SmartChain begins by building a large knowledge graph of insights, based on news articles, earnings calls, and more. From these it extracts a key set of insights into core materials used in the renewable project and notifies the user of any critical alerts. 
+## How it Works
 
-In addition to this, SmartChain collates a series of alternate products and monitors these as well, providing the data foundation for its agent assistant to work with. 
+1. **Knowledge Graph Generation**
+   - Builds insights from news articles, earnings calls, and market data
+   - Extracts key information about materials used in renewable projects
+   - Sends critical alerts to users
 
-The user can ask SmartChain to perform a more in-depth analysis and assess the market situation. 
+2. **Alternative Materials**
+   - Tracks both primary materials and their alternatives
+   - Monitors pricing trends and availability
+   - Suggests optimal timing for material switches
 
-Once this is completed the user has the visibility to check the line of thinking before optionally making some edits and then taking the action, in this case entering a contract renegotiation and exploring other options in the materials. 
+3. **AI Analysis**
+   - Users can request in-depth market analysis
+   - Get clear visibility into the AI's reasoning
+   - Make informed decisions about contract negotiations
+
+## Tech Stack
+
+- **Frontend**: Next.js, React, Cytoscape for visualizations
+- **Backend**: Python with FastAPI
+- **Data**: Custom knowledge graph generation
+
+## Try it Out
+
+```bash
+# Frontend
+cd frontend && npm install && npm run dev
+
+# Backend
+cd backend && python app/main.py
+```
+
+Built for a sustainable future 🌿
