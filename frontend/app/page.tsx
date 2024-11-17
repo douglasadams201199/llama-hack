@@ -216,6 +216,10 @@ export default function Home() {
     <div className="flex min-h-screen">
       <div className="w-32"></div> {/* Spacer div */}
       <main className="flex-1 p-8">
+        
+        <h1 className="text-6xl font-bold mb-8 text-left text-slate-500">
+          SmartChain
+        </h1>
         <h1 className="text-2xl font-bold mb-6">
           Project LLaMA: Low-carbon Lifecycle and Microgrid Adaption
         </h1>
